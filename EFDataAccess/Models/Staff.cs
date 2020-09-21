@@ -4,7 +4,10 @@ using System.Text;
 
 namespace EFDataAccess.Models
 {
-    class Staff
+    public class Staff
     {
+        public int StaffId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }
