@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Class\" />
+    <Folder Include="Daos\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

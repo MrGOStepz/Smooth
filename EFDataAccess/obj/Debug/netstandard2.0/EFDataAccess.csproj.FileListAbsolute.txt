@@ -1,0 +1,5 @@
+C:\GitRepos\Smooth\EFDataAccess\bin\Debug\netstandard2.0\EFDataAccess.deps.json
+C:\GitRepos\Smooth\EFDataAccess\bin\Debug\netstandard2.0\EFDataAccess.dll
+C:\GitRepos\Smooth\EFDataAccess\obj\Debug\netstandard2.0\EFDataAccess.csprojAssemblyReference.cache
+C:\GitRepos\Smooth\EFDataAccess\obj\Debug\netstandard2.0\EFDataAccess.AssemblyInfoInputs.cache
+C:\GitRepos\Smooth\EFDataAccess\obj\Debug\netstandard2.0\EFDataAccess.AssemblyInfo.cs
