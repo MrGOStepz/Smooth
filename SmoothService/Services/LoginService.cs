@@ -11,7 +11,7 @@ namespace SmoothService.Services
         public string IsSuccessLogin(string password)
         {
 
-            return ""
+            return "";
         }
     }
 }

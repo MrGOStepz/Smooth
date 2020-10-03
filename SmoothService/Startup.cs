@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
 using SmoothService.Models;
+using Serilog;
 
 namespace SmoothService
 {
@@ -46,6 +47,8 @@ namespace SmoothService
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSerilogRequestLogging();
 
             app.UseAuthorization();
 
