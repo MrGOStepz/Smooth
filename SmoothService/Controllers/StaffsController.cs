@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmoothService.Models;
 using System.Collections.Generic;
@@ -12,9 +12,11 @@ namespace SmoothService.Controllers
     public class StaffsController : ControllerBase
     {
         private readonly StaffContext _context;
+        private readonly ILoger<StaffsController> _logger;
 
-        public StaffsController(StaffContext context)
+        public StaffsController(ILogger<StaffsController> logger,StaffContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
