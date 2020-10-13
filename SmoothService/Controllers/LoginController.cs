@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using SmoothService.Models;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace SmoothService.Controllers
         public ActionResult Get()
         {
             Staff staff = new Staff();
-
+            //Test 
             return Ok("Test");
         }
     }
