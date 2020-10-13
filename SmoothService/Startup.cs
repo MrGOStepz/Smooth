@@ -12,8 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
-using SmoothService.Models;
 using Serilog;
+using EFDataAccess.DataAccess;
 
 namespace SmoothService
 {

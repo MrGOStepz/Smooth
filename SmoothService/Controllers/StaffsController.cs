@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EFDataAccess.DataAccess;
+using EFDataAccess.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SmoothService.Models;
+using SmoothService.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ namespace SmoothService.Controllers
     public class StaffsController : ControllerBase
     {
         private readonly StaffContext _context;
+        private StaffService _staffService = new StaffService();
 
         public StaffsController(StaffContext context)
         {
@@ -45,7 +48,7 @@ namespace SmoothService.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStaff(int id, Staff staff)
         {
-            if (id != staff.StaffId)
+            if (id != staff.Id)
             {
                 return BadRequest();
             }
@@ -80,7 +83,16 @@ namespace SmoothService.Controllers
             _context.Staff.Add(staff);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetStaff), new { id = staff.StaffId }, staff);
+            return CreatedAtAction(nameof(GetStaff), new { id = staff.Id }, staff);
+        }
+
+        //TODO not done yet
+        // POST: api/Staffs
+        [HttpPost]
+        public async Task<ActionResult<Staff>> GetCredential(Staff staff)
+        {
+            var getStaff = _staffService.GetCredential(staff.Password, _context);
+            return getStaff;
         }
 
         // DELETE: api/Staffs/5
@@ -101,7 +113,7 @@ namespace SmoothService.Controllers
 
         private bool StaffExists(int id)
         {
-            return _context.Staff.Any(e => e.StaffId == id);
+            return _context.Staff.Any(e => e.Id == id);
         }
     }
 }
