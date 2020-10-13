@@ -26,7 +26,10 @@
 
   <ItemGroup>
     <Folder Include="Class\" />
-    <Folder Include="Daos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EFDataAccess\EFDataAccess.csproj" />
   </ItemGroup>
 
 
