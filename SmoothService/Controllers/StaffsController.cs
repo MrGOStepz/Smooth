@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-=======
-﻿using EFDataAccess.DataAccess;
-using EFDataAccess.Models;
->>>>>>> 06a1bc541e8de0489eca1e983e771b3f75e8fcc8
+using EFDataAccess.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmoothService.Services;
@@ -17,11 +13,8 @@ namespace SmoothService.Controllers
     public class StaffsController : ControllerBase
     {
         private readonly StaffContext _context;
-<<<<<<< HEAD
         private readonly ILoger<StaffsController> _logger;
-=======
         private StaffService _staffService = new StaffService();
->>>>>>> 06a1bc541e8de0489eca1e983e771b3f75e8fcc8
 
         public StaffsController(ILogger<StaffsController> logger,StaffContext context)
         {
