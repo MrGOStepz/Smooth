@@ -1,6 +1,8 @@
 using EFDataAccess.DataAccess;
+using EFDataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using SmoothService.Services;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +15,13 @@ namespace SmoothService.Controllers
     public class StaffsController : ControllerBase
     {
         private readonly StaffContext _context;
-        private readonly ILoger<StaffsController> _logger;
-        private StaffService _staffService = new StaffService();
+        private readonly ILogger _logger;
+        private StaffService _staffService;
 
-        public StaffsController(ILogger<StaffsController> logger,StaffContext context)
+        public StaffsController(StaffContext context)
         {
-            _logger = logger;
             _context = context;
+            _staffService = new StaffService(_context);
         }
 
         // GET: api/Staffs
@@ -89,10 +91,10 @@ namespace SmoothService.Controllers
 
         //TODO not done yet
         // POST: api/Staffs
-        [HttpPost]
-        public async Task<ActionResult<Staff>> GetCredential(Staff staff)
+        [HttpGet("{password}")]
+        public ActionResult<Staff> GetCredential(string password)
         {
-            var getStaff = _staffService.GetCredential(staff.Password, _context);
+            var getStaff = _staffService.GetCredential(password);
             return getStaff;
         }
 
