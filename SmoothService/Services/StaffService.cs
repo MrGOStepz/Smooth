@@ -24,7 +24,16 @@ namespace SmoothService.Services
         {
             _logger.Information("GetCredential");
             var staff = (Staff)_staffContext.Staff.Where(c => c.Password == Password);
-            return staff;
+            if(staff != null)
+            {
+                return staff;
+            }
+            else
+            {
+                return staff = new Staff();
+            }
+
+            
         }
 
         public int SetClockInOut(Staff staffs)
@@ -34,9 +43,9 @@ namespace SmoothService.Services
             staffTimesheet.Staff = staff;
             staffTimesheet.ClockIn = DateTime.Now.ToLongDateString();
 
-            if (staff.ClockStatus.Status == "Out")
+            if (staff.ClockStatus.Name == "Out")
             {
-                staff.ClockStatus.Status = "In";
+                staff.ClockStatus.Name = "In";
                 var staffTimesheetClockIn = _staffContext.StaffTimesheet
                 .Where(c => c.Id == staffs.Id)
                 .OrderByDescending(c => c.Id)
@@ -51,7 +60,7 @@ namespace SmoothService.Services
             }
             else
             {
-                staff.ClockStatus.Status = "In";
+                staff.ClockStatus.Name = "In";
                 _staffContext.StaffTimesheet.Add(staffTimesheet);
                 _staffContext.Entry(staff).State = EntityState.Modified;
                 _staffContext.SaveChangesAsync();

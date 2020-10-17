@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace EFDataAccess.Models
@@ -7,6 +8,8 @@ namespace EFDataAccess.Models
     public class Product
     {
         public int Id { get; set; }
+        [Required]
+        [MaxLength(200)]
         public int Name { get; set; }
         public string Description { get; set; }
         public Popup Popup { get; set; } = new Popup();

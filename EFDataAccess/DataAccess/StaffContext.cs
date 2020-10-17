@@ -13,6 +13,13 @@ namespace EFDataAccess.DataAccess
         public DbSet<StaffPosition> StaffPosition { get; set; }
         public DbSet<ClockStatus> ClockStatus { get; set; }
         public DbSet<StaffTimesheet> StaffTimesheet { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.SeedEnumValues<StaffPosition, StaffPositionEnum>(e => e);
+            builder.SeedEnumValues<ClockStatus, ClockStatusEnum>(e => e);
+
+        }
     }
 
 }
