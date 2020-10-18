@@ -45,9 +45,21 @@ namespace SmoothService.Controllers
             return staff;
         }
 
+        // GET: api/Staffs/password/
+        [HttpGet("password/{password}")]
+        public ActionResult<Staff> GetStaffItem(string password)
+        {
+            var staff = _context.Staff.Where(s => s.Password == password).FirstOrDefault<Staff>();
+
+            if (staff == null)
+            {
+                return NotFound();
+            }
+
+            return staff;
+        }
+
         // PUT: api/Staffs/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStaff(int id, Staff staff)
         {
@@ -78,8 +90,23 @@ namespace SmoothService.Controllers
         }
 
         // POST: api/Staffs
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost("clock")]
+        public ActionResult<Staff> PostClockStaff(Staff staff)
+        {
+            try
+            {
+                var tmpStaff = _staffService.SetClockInOut(staff);
+                return Content("Update Complete");
+            }
+            catch (System.Exception ex)
+            {
+                return Content(string.Format("Cannot Update Clock : {0}", ex.Message));
+            }
+
+
+        }
+
+        // POST: api/Staffs
         [HttpPost]
         public async Task<ActionResult<Staff>> PostStaff(Staff staff)
         {
@@ -88,13 +115,6 @@ namespace SmoothService.Controllers
             return CreatedAtAction(nameof(GetStaff), new { id = staff.Id }, staff);
         }
 
-        // Get: api/Staffs
-        [HttpGet("{password}")]
-        public ActionResult<Staff> GetCredential(string password)
-        {
-            var getStaff = _staffService.GetCredential(password);
-            return getStaff;
-        }
 
         // DELETE: api/Staffs/5
         [HttpDelete("{id}")]

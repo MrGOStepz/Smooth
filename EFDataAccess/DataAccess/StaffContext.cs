@@ -16,6 +16,9 @@ namespace EFDataAccess.DataAccess
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Staff>()
+            .HasIndex(u => u.Password)
+            .IsUnique();
             builder.SeedEnumValues<StaffPosition, StaffPositionEnum>(e => e);
             builder.SeedEnumValues<ClockStatus, ClockStatusEnum>(e => e);
         }
