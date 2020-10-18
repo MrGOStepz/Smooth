@@ -40,8 +40,8 @@ namespace EFDataAccess.Migrations
                     LastName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    StaffPositionId = table.Column<int>(nullable: true),
-                    ClockStatusId = table.Column<int>(nullable: true),
+                    ClockStatusId = table.Column<int>(nullable: false),
+                    StaffPositionId = table.Column<int>(nullable: false),
                     Password = table.Column<string>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false)
                 },
@@ -53,13 +53,13 @@ namespace EFDataAccess.Migrations
                         column: x => x.ClockStatusId,
                         principalTable: "ClockStatus",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Staff_StaffPosition_StaffPositionId",
                         column: x => x.StaffPositionId,
                         principalTable: "StaffPosition",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

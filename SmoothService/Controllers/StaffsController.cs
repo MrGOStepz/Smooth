@@ -85,12 +85,10 @@ namespace SmoothService.Controllers
         {
             _context.Staff.Add(staff);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction(nameof(GetStaff), new { id = staff.Id }, staff);
         }
 
-        //TODO not done yet
-        // POST: api/Staffs
+        // Get: api/Staffs
         [HttpGet("{password}")]
         public ActionResult<Staff> GetCredential(string password)
         {

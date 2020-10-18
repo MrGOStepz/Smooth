@@ -18,7 +18,6 @@ namespace EFDataAccess.DataAccess
         {
             builder.SeedEnumValues<StaffPosition, StaffPositionEnum>(e => e);
             builder.SeedEnumValues<ClockStatus, ClockStatusEnum>(e => e);
-
         }
     }
 

@@ -19,38 +19,6 @@ namespace EFDataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("EFDataAccess.DataAccess.StaffPosition", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StaffPosition");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Manager"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Staff"
-                        });
-                });
-
             modelBuilder.Entity("EFDataAccess.Models.ClockStatus", b =>
                 {
                     b.Property<int>("Id")
@@ -85,7 +53,7 @@ namespace EFDataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClockStatusId")
+                    b.Property<int>("ClockStatusId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -109,7 +77,7 @@ namespace EFDataAccess.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StaffPositionId")
+                    b.Property<int>("StaffPositionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -119,6 +87,38 @@ namespace EFDataAccess.Migrations
                     b.HasIndex("StaffPositionId");
 
                     b.ToTable("Staff");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.StaffPosition", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StaffPosition");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Manager"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Staff"
+                        });
                 });
 
             modelBuilder.Entity("EFDataAccess.Models.StaffTimesheet", b =>
@@ -148,11 +148,15 @@ namespace EFDataAccess.Migrations
                 {
                     b.HasOne("EFDataAccess.Models.ClockStatus", "ClockStatus")
                         .WithMany()
-                        .HasForeignKey("ClockStatusId");
+                        .HasForeignKey("ClockStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("EFDataAccess.DataAccess.StaffPosition", "StaffPosition")
+                    b.HasOne("EFDataAccess.Models.StaffPosition", "StaffPosition")
                         .WithMany()
-                        .HasForeignKey("StaffPositionId");
+                        .HasForeignKey("StaffPositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EFDataAccess.Models.StaffTimesheet", b =>
