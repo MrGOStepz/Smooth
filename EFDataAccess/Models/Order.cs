@@ -7,7 +7,7 @@ namespace EFDataAccess.Models
     public class Order
     {
         public int Id { get; set; }
-        public string DateTimeOrder { get; set; }
+        public DateTime DateTimeOrder { get; set; } = DateTime.Now;
         public OrderStatus OrderStatus { get; set; } = new OrderStatus();
         public OrderType OrderType { get; set; } = new OrderType();
         public Staff Staff { get; set; } = new Staff();

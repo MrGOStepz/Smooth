@@ -36,24 +36,24 @@ namespace SmoothService.Services
             
         }
 
-        public int SetClockInOut(Staff staffs)
+        public int SetClockInOut(Login login)
         {
-            var staff = (Staff)_staffContext.Staff.Where(c => c.Id == staffs.Id);
+            var staff = _staffContext.Staff.Where(c => c.Id == login.Id).FirstOrDefault<Staff>();
             var staffTimesheet = new StaffTimesheet();
             staffTimesheet.Staff = staff;
-            staffTimesheet.ClockIn = DateTime.Now.ToLongDateString();
+            staffTimesheet.ClockIn = DateTime.Now;
 
-            if (staff.ClockStatus.Id == (int)ClockStatusEnum.In)
+            if (staff.ClockStatusId == (int)ClockStatusEnum.In)
             {
                 staff.ClockStatusId = (int)ClockStatusEnum.Out;
                 var staffTimesheetClockIn = _staffContext.StaffTimesheet
-                .Where(c => c.Id == staffs.Id)
+                .Where(c => c.Staff.Id == login.Id)
                 .OrderByDescending(c => c.Id)
-                .First();
-                staffTimesheetClockIn.ClockOut = DateTime.Now.ToLongTimeString();
+                .FirstOrDefault();
+                staffTimesheetClockIn.ClockOut = DateTime.Now;
                 _staffContext.Entry(staffTimesheetClockIn).State = EntityState.Modified;
                 _staffContext.Entry(staff).State = EntityState.Modified;
-                _staffContext.SaveChangesAsync();
+                _staffContext.SaveChanges();
 
                 //_staffContext.Entry(staffTimesheetClockIn).CurrentValues.SetValues(item);
 
@@ -63,7 +63,7 @@ namespace SmoothService.Services
                 staff.ClockStatusId = (int)ClockStatusEnum.In;
                 _staffContext.StaffTimesheet.Add(staffTimesheet);
                 _staffContext.Entry(staff).State = EntityState.Modified;
-                _staffContext.SaveChangesAsync();
+                _staffContext.SaveChanges();
             }
 
             return 1;

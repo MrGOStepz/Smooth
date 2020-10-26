@@ -8,7 +8,7 @@ namespace EFDataAccess.Models
     {
         public int Id { get; set; }
         public Staff Staff { get; set; }
-        public string ClockIn { get; set; }
-        public string ClockOut { get; set; }
+        public DateTime ClockIn { get; set; }
+        public DateTime ClockOut { get; set; }
     }
 }

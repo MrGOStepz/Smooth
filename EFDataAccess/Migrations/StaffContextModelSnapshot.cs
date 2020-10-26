@@ -72,7 +72,7 @@ namespace EFDataAccess.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -83,6 +83,9 @@ namespace EFDataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClockStatusId");
+
+                    b.HasIndex("Password")
+                        .IsUnique();
 
                     b.HasIndex("StaffPositionId");
 
@@ -128,11 +131,11 @@ namespace EFDataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClockIn")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("ClockIn")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("ClockOut")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("ClockOut")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("StaffId")
                         .HasColumnType("int");

@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using SmoothService.Services;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SmoothService.Controllers
@@ -91,11 +94,11 @@ namespace SmoothService.Controllers
 
         // POST: api/Staffs
         [HttpPost("clock")]
-        public ActionResult<Staff> PostClockStaff(Staff staff)
+        public ActionResult<Staff> PostClockStaff(Login login)
         {
             try
             {
-                var tmpStaff = _staffService.SetClockInOut(staff);
+                var tmpStaff = _staffService.SetClockInOut(login);
                 return Content("Update Complete");
             }
             catch (System.Exception ex)

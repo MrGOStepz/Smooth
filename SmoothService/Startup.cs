@@ -30,8 +30,6 @@ namespace SmoothService
         {
             services.AddDbContext<StaffContext>(opt =>
                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<TodoContext>(opt =>
-            //   opt.UseInMemoryDatabase("TodoList"));
             services.AddControllers();
         }
 

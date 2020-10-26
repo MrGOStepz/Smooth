@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EFDataAccess.Migrations
 {
-    public partial class InitialCreationStaff : Migration
+    public partial class UpdateModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,8 +70,8 @@ namespace EFDataAccess.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StaffId = table.Column<int>(nullable: true),
-                    ClockIn = table.Column<string>(nullable: true),
-                    ClockOut = table.Column<string>(nullable: true)
+                    ClockIn = table.Column<DateTime>(nullable: false),
+                    ClockOut = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,6 +107,12 @@ namespace EFDataAccess.Migrations
                 name: "IX_Staff_ClockStatusId",
                 table: "Staff",
                 column: "ClockStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Staff_Password",
+                table: "Staff",
+                column: "Password",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Staff_StaffPositionId",
