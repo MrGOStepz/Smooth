@@ -113,6 +113,10 @@ namespace SmoothService.Controllers
         [HttpPost]
         public async Task<ActionResult<Staff>> PostStaff(Staff staff)
         {
+            ClockStatus clockStatus = _context.ClockStatus.Find(staff.ClockStatus.Id);
+            StaffPosition staffPosition = _context.StaffPosition.Find(staff.StaffPosition.Id);
+            staff.ClockStatus = clockStatus;
+            staff.StaffPosition = staffPosition;
             _context.Staff.Add(staff);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetStaff), new { id = staff.Id }, staff);

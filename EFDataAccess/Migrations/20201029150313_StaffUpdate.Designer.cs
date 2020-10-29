@@ -4,14 +4,16 @@ using EFDataAccess.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFDataAccess.Migrations
 {
     [DbContext(typeof(StaffContext))]
-    partial class StaffContextModelSnapshot : ModelSnapshot
+    [Migration("20201029150313_StaffUpdate")]
+    partial class StaffUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,6 +27,7 @@ namespace EFDataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
@@ -97,6 +100,7 @@ namespace EFDataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 

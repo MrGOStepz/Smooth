@@ -18,13 +18,14 @@ namespace EFDataAccess.Models
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-        [Required]
         [MaxLength(200)]
         public string Name { get; set; }
 
         public static implicit operator ClockStatus(ClockStatusEnum @enum) => new ClockStatus(@enum);
 
         public static implicit operator ClockStatusEnum(ClockStatus clockStatus) => (ClockStatusEnum)clockStatus.Id;
+
+
     }
 
     public enum ClockStatusEnum

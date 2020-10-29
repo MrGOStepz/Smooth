@@ -17,8 +17,6 @@ namespace EFDataAccess.Models
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public int ClockStatusId { get; set; }
-        public int StaffPositionId { get; set; }
         public virtual StaffPosition StaffPosition { get; set; }
         public virtual ClockStatus ClockStatus { get; set; }
         [Required]

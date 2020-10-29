@@ -18,7 +18,6 @@ namespace EFDataAccess.Models
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-        [Required]
         [MaxLength(200)]
         public string Name { get; set; }
 
