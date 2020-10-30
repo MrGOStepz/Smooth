@@ -8,7 +8,7 @@ namespace EFDataAccess.Models
     public class TableInfo
     {
         public int Id { get; set; }
-        [Required]
+
         [MaxLength(200)]
         public string Name { get; set; }
         public TableSection TableSection { get; set; } = new TableSection();

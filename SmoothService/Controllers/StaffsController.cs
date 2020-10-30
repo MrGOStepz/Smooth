@@ -17,11 +17,10 @@ namespace SmoothService.Controllers
     [ApiController]
     public class StaffsController : ControllerBase
     {
-        private readonly StaffContext _context;
-        private readonly ILogger _logger;
+        private readonly SmoothContext _context;
         private StaffService _staffService;
 
-        public StaffsController(StaffContext context)
+        public StaffsController(SmoothContext context)
         {
             _context = context;
             _staffService = new StaffService(_context);

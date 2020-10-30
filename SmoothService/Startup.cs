@@ -28,9 +28,7 @@ namespace SmoothService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProductsContext>(opt =>
-               opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<StaffContext>(opt =>
+            services.AddDbContext<SmoothContext>(opt =>
                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
         }

@@ -8,7 +8,7 @@ namespace EFDataAccess.Models
     public class PopupItem
     {
         public int Id { get; set; }
-        [Required]
+
         [MaxLength(200)]
         public string Name { get; set; }
         public Popup Popup { get; set; }

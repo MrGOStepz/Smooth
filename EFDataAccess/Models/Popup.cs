@@ -8,9 +8,9 @@ namespace EFDataAccess.Models
     public class Popup
     {
         public int Id { get; set; }
-        [Required]
+
         [MaxLength(200)]
         public int Name { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true
     }
 }

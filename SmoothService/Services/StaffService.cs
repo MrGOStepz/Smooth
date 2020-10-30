@@ -12,34 +12,33 @@ namespace SmoothService.Services
 {
     public class StaffService
     {
-        private readonly ILogger _logger;
-        StaffContext _staffContext;
+        SmoothContext _smoothContext;
 
-        public StaffService(StaffContext context)
+        public StaffService(SmoothContext context)
         {
-            _staffContext = context;
+            _smoothContext = context;
         }
 
         public int SetClockInOut(Login login)
         {
-            var staff = _staffContext.Staff.Where(c => c.Id == login.Id)
+            var staff = _smoothContext.Staff.Where(c => c.Id == login.StaffId)
                 .Include(a => a.ClockStatus)
                 .Include(b => b.StaffPosition)
                 .FirstOrDefault<Staff>();
-            List<ClockStatus> clockStatus = _staffContext.ClockStatus.ToList();
+            List<ClockStatus> clockStatus = _smoothContext.ClockStatus.ToList();
 
 
             if (staff.ClockStatus.Id == (int)ClockStatusEnum.In)
             {
                 staff.ClockStatus = clockStatus.Where(a => a.Id == (int)ClockStatusEnum.Out).SingleOrDefault();
-                var staffTimesheetClockIn = _staffContext.StaffTimesheet
-                    .Where(c => c.Staff.Id == login.Id)
+                var staffTimesheetClockIn = _smoothContext.StaffTimesheet
+                    .Where(c => c.Staff.Id == login.StaffId)
                     .OrderByDescending(c => c.Id)
                     .FirstOrDefault();
                 staffTimesheetClockIn.ClockOut = DateTime.Now;
-                _staffContext.Entry(staffTimesheetClockIn).State = EntityState.Modified;
-                _staffContext.Entry(staff).State = EntityState.Modified;
-                _staffContext.SaveChanges();
+                _smoothContext.Entry(staffTimesheetClockIn).State = EntityState.Modified;
+                _smoothContext.Entry(staff).State = EntityState.Modified;
+                _smoothContext.SaveChanges();
 
             }
             else
@@ -48,9 +47,9 @@ namespace SmoothService.Services
                 staffTimesheet.Staff = staff;
                 staffTimesheet.ClockIn = DateTime.Now;
                 staff.ClockStatus = clockStatus.Where(a => a.Id == (int)ClockStatusEnum.In).SingleOrDefault();
-                _staffContext.StaffTimesheet.Add(staffTimesheet);
-                _staffContext.Entry(staff).State = EntityState.Modified;
-                _staffContext.SaveChanges();
+                _smoothContext.StaffTimesheet.Add(staffTimesheet);
+                _smoothContext.Entry(staff).State = EntityState.Modified;
+                _smoothContext.SaveChanges();
             }
 
             return 1;
