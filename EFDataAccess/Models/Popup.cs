@@ -11,6 +11,6 @@ namespace EFDataAccess.Models
 
         [MaxLength(200)]
         public int Name { get; set; }
-        public bool IsActive { get; set; } = true
+        public bool IsActive { get; set; } = true;
     }
 }

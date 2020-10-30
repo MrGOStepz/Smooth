@@ -11,9 +11,9 @@ namespace EFDataAccess.Models
 
         [MaxLength(200)]
         public string Name { get; set; }
-        public Popup Popup { get; set; }
-        public float Price { get; set; }
-        public string ImagePath { get; set; }
-        public bool IsActive { get; set; }
+        public Popup Popup { get; set; } = new Popup();
+        public float Price { get; set; } = 0.00f;
+        public string ImagePath { get; set; } = "";
+        public bool IsActive { get; set; } = true;
     }
 }
