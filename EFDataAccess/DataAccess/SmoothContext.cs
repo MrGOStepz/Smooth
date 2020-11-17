@@ -24,18 +24,18 @@ namespace EFDataAccess.DataAccess
         public DbSet<Material> Material { get; set; }
 
         public DbSet<Setting> Setting { get; set; }
-        //public DbSet<TableInfo> TableInfo { get; set; }
-        //public DbSet<TableSection> TableSection { get; set; }
+        public DbSet<TableInfo> TableInfo { get; set; }
+        public DbSet<TableSection> TableSection { get; set; }
 
         public DbSet<PrinterInfo> PrinterInfo { get; set; }
         public DbSet<PrintType> PrintType { get; set; }
         public DbSet<PrintLog> PrintLog { get; set; }
 
-        //public DbSet<Order> Order { get; set; }
-        //public DbSet<OrderInfo> OrderInfo { get; set; }
-        //public DbSet<OrderStatus> OrderStatus { get; set; }
-        //public DbSet<OrderType> OrderType { get; set; }
-        //public DbSet<PaymentType> PaymentType { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderInfo> OrderInfo { get; set; }
+        public DbSet<OrderStatus> OrderStatus { get; set; }
+        public DbSet<OrderType> OrderType { get; set; }
+        public DbSet<PaymentType> PaymentType { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -44,6 +44,7 @@ namespace EFDataAccess.DataAccess
             .IsUnique();
             builder.SeedEnumValues<StaffPosition, StaffPositionEnum>(e => e);
             builder.SeedEnumValues<ClockStatus, ClockStatusEnum>(e => e);
+            builder.SeedEnumValues<FoodType, FoodTypeEnum>(e => e);
         }
     }
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EFDataAccess.DataAccess;
 using EFDataAccess.Models;
 
-namespace SmoothService.Services
+namespace SmoothService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -28,13 +28,6 @@ namespace SmoothService.Services
             return await _context.Popup.ToListAsync();
         }
 
-        // GET: api/Popups
-        [HttpGet("PopupItems")]
-        public async Task<ActionResult<IEnumerable<PopupItem>>> GetPopupItems()
-        {
-            return await _context.PopupItem.ToListAsync();
-        }
-
         // GET: api/Popups/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Popup>> GetPopup(int id)
@@ -49,21 +42,9 @@ namespace SmoothService.Services
             return popup;
         }
 
-        // GET: api/Popups/5
-        [HttpGet("PopupItmes/{id}")]
-        public async Task<ActionResult<PopupItem>> GetPopupItems(int id)
-        {
-            var popupItem = await _context.PopupItem.FindAsync(id);
-
-            if (popupItem == null)
-            {
-                return NotFound();
-            }
-
-            return popupItem;
-        }
-
         // PUT: api/Popups/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPopup(int id, Popup popup)
         {
@@ -93,37 +74,9 @@ namespace SmoothService.Services
             return NoContent();
         }
 
-        // PUT: api/Popups/5
-        [HttpPut("PopupItems/{id}")]
-        public async Task<IActionResult> PutPopupItems(int id, PopupItem popupItems)
-        {
-            if (id != popupItems.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(popupItems).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PopupExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Popups
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<Popup>> PostPopup(Popup popup)
         {
@@ -131,18 +84,6 @@ namespace SmoothService.Services
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPopup", new { id = popup.Id }, popup);
-        }
-
-        // POST: api/Popups
-        [HttpPost("PopupItem")]
-        public async Task<ActionResult<Popup>> PostPopupItem(PopupItem popupItems)
-        {
-            Popup popup = _context.Popup.Find(popupItems.Popup.Id);
-            popupItems.Popup = popup;
-            _context.PopupItem.Add(popupItems);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPopupItem", new { id = popupItems.Id }, popupItems);
         }
 
         // DELETE: api/Popups/5

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDataAccess.Migrations
 {
     [DbContext(typeof(SmoothContext))]
-    [Migration("20201030160739_AddProductContext")]
-    partial class AddProductContext
+    [Migration("20201108094448_InitialDatabase")]
+    partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,22 @@ namespace EFDataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EFDataAccess.Models.CookStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CookStatus");
+                });
+
             modelBuilder.Entity("EFDataAccess.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -60,8 +76,8 @@ namespace EFDataAccess.Migrations
                     b.Property<string>("CardNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DateOfBirth")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -70,8 +86,8 @@ namespace EFDataAccess.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<string>("LastActive")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("LastActive")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(200)")
@@ -92,9 +108,7 @@ namespace EFDataAccess.Migrations
             modelBuilder.Entity("EFDataAccess.Models.FoodType", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(200)")
@@ -115,8 +129,8 @@ namespace EFDataAccess.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
                     b.Property<int?>("ProductId")
@@ -153,6 +167,148 @@ namespace EFDataAccess.Migrations
                     b.ToTable("Material");
                 });
 
+            modelBuilder.Entity("EFDataAccess.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateTimeOrder")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("OrderStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PaymentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StaffId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TableInfoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderStatusId");
+
+                    b.HasIndex("OrderTypeId");
+
+                    b.HasIndex("PaymentTypeId");
+
+                    b.HasIndex("StaffId");
+
+                    b.HasIndex("TableInfoId");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.OrderInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CookStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOrder")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PopupItemId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StaffId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CookStatusId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("PopupItemId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("OrderInfo");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderStatus");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.OrderType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderType");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.PaymentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentType");
+                });
+
             modelBuilder.Entity("EFDataAccess.Models.Popup", b =>
                 {
                     b.Property<int>("Id")
@@ -163,8 +319,8 @@ namespace EFDataAccess.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
                     b.HasKey("Id");
@@ -260,14 +416,31 @@ namespace EFDataAccess.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
+                    b.HasKey("Id");
+
+                    b.ToTable("PrinterInfo");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.PrinterProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("PrinterInfoId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PrinterInfoId");
+
                     b.HasIndex("ProductId");
 
-                    b.ToTable("PrinterInfo");
+                    b.ToTable("PrinterProduct");
                 });
 
             modelBuilder.Entity("EFDataAccess.Models.Product", b =>
@@ -286,11 +459,11 @@ namespace EFDataAccess.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IsActive")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int>("IsAvaliable")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsAvaliable")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsGlutenFree")
                         .HasColumnType("bit");
@@ -298,8 +471,8 @@ namespace EFDataAccess.Migrations
                     b.Property<bool>("IsVagen")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
                     b.Property<int?>("PopupId")
@@ -438,6 +611,70 @@ namespace EFDataAccess.Migrations
                     b.ToTable("StaffTimesheet");
                 });
 
+            modelBuilder.Entity("EFDataAccess.Models.TableInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("Height")
+                        .HasColumnType("real");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<float>("MarginBottom")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MarginLeft")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MarginRight")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MarginTop")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<int?>("TableSectionId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TableSectionId");
+
+                    b.ToTable("TableInfo");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.TableSection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<int>("TabOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TableSection");
+                });
+
             modelBuilder.Entity("EFDataAccess.Models.Ingredient", b =>
                 {
                     b.HasOne("EFDataAccess.Models.Product", null)
@@ -450,6 +687,56 @@ namespace EFDataAccess.Migrations
                     b.HasOne("EFDataAccess.Models.Product", null)
                         .WithMany("Material")
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.Order", b =>
+                {
+                    b.HasOne("EFDataAccess.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("EFDataAccess.Models.OrderStatus", "OrderStatus")
+                        .WithMany()
+                        .HasForeignKey("OrderStatusId");
+
+                    b.HasOne("EFDataAccess.Models.OrderType", "OrderType")
+                        .WithMany()
+                        .HasForeignKey("OrderTypeId");
+
+                    b.HasOne("EFDataAccess.Models.PaymentType", "PaymentType")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypeId");
+
+                    b.HasOne("EFDataAccess.Models.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId");
+
+                    b.HasOne("EFDataAccess.Models.TableInfo", "TableInfo")
+                        .WithMany()
+                        .HasForeignKey("TableInfoId");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.OrderInfo", b =>
+                {
+                    b.HasOne("EFDataAccess.Models.CookStatus", "CookStatus")
+                        .WithMany()
+                        .HasForeignKey("CookStatusId");
+
+                    b.HasOne("EFDataAccess.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("EFDataAccess.Models.PopupItem", "PopupItem")
+                        .WithMany()
+                        .HasForeignKey("PopupItemId");
+
+                    b.HasOne("EFDataAccess.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("EFDataAccess.Models.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId");
                 });
 
             modelBuilder.Entity("EFDataAccess.Models.PopupItem", b =>
@@ -470,8 +757,12 @@ namespace EFDataAccess.Migrations
                         .HasForeignKey("StaffId");
                 });
 
-            modelBuilder.Entity("EFDataAccess.Models.PrinterInfo", b =>
+            modelBuilder.Entity("EFDataAccess.Models.PrinterProduct", b =>
                 {
+                    b.HasOne("EFDataAccess.Models.PrinterInfo", "PrinterInfo")
+                        .WithMany()
+                        .HasForeignKey("PrinterInfoId");
+
                     b.HasOne("EFDataAccess.Models.Product", null)
                         .WithMany("PrinterInfo")
                         .HasForeignKey("ProductId");
@@ -504,6 +795,13 @@ namespace EFDataAccess.Migrations
                     b.HasOne("EFDataAccess.Models.Staff", "Staff")
                         .WithMany()
                         .HasForeignKey("StaffId");
+                });
+
+            modelBuilder.Entity("EFDataAccess.Models.TableInfo", b =>
+                {
+                    b.HasOne("EFDataAccess.Models.TableSection", "TableSection")
+                        .WithMany()
+                        .HasForeignKey("TableSectionId");
                 });
 #pragma warning restore 612, 618
         }

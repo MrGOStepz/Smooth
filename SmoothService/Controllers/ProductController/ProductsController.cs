@@ -80,6 +80,10 @@ namespace SmoothService.Services
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            var popup = await _context.Popup.FindAsync(product.Popup.Id);
+            var foodType = await _context.FoodType.FindAsync(product.FoodType.Id);
+            product.Popup = popup;
+            product.FoodType = foodType;
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 

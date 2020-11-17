@@ -4,14 +4,16 @@ using EFDataAccess.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFDataAccess.Migrations
 {
     [DbContext(typeof(SmoothContext))]
-    partial class SmoothContextModelSnapshot : ModelSnapshot
+    [Migration("20201108094920_InitialDatabase2")]
+    partial class InitialDatabase2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -448,13 +450,15 @@ namespace EFDataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("PrinterInfoId")
+                    b.Property<int?>("PrinterInfoId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PrinterInfoId");
 
                     b.HasIndex("ProductId");
 
@@ -777,8 +781,12 @@ namespace EFDataAccess.Migrations
 
             modelBuilder.Entity("EFDataAccess.Models.PrinterProduct", b =>
                 {
+                    b.HasOne("EFDataAccess.Models.PrinterInfo", "PrinterInfo")
+                        .WithMany()
+                        .HasForeignKey("PrinterInfoId");
+
                     b.HasOne("EFDataAccess.Models.Product", null)
-                        .WithMany("PrinterProduct")
+                        .WithMany("PrinterInfo")
                         .HasForeignKey("ProductId");
                 });
 

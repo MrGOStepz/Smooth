@@ -21,38 +21,46 @@ namespace SmoothService.Services
 
         public int SetClockInOut(Login login)
         {
-            var staff = _smoothContext.Staff.Where(c => c.Id == login.StaffId)
-                .Include(a => a.ClockStatus)
-                .Include(b => b.StaffPosition)
-                .FirstOrDefault<Staff>();
-            List<ClockStatus> clockStatus = _smoothContext.ClockStatus.ToList();
-
-
-            if (staff.ClockStatus.Id == (int)ClockStatusEnum.In)
+            try
             {
-                staff.ClockStatus = clockStatus.Where(a => a.Id == (int)ClockStatusEnum.Out).SingleOrDefault();
-                var staffTimesheetClockIn = _smoothContext.StaffTimesheet
-                    .Where(c => c.Staff.Id == login.StaffId)
-                    .OrderByDescending(c => c.Id)
-                    .FirstOrDefault();
-                staffTimesheetClockIn.ClockOut = DateTime.Now;
-                _smoothContext.Entry(staffTimesheetClockIn).State = EntityState.Modified;
-                _smoothContext.Entry(staff).State = EntityState.Modified;
-                _smoothContext.SaveChanges();
+                var staff = _smoothContext.Staff.Where(c => c.Id == login.StaffId)
+                    .Include(a => a.ClockStatus)
+                    .Include(b => b.StaffPosition)
+                    .FirstOrDefault<Staff>();
+                List<ClockStatus> clockStatus = _smoothContext.ClockStatus.ToList();
 
+
+                if (staff.ClockStatus.Id == (int)ClockStatusEnum.In)
+                {
+                    staff.ClockStatus = clockStatus.Where(a => a.Id == (int)ClockStatusEnum.Out).SingleOrDefault();
+                    var staffTimesheetClockIn = _smoothContext.StaffTimesheet
+                        .Where(c => c.Staff.Id == login.StaffId)
+                        .OrderByDescending(c => c.Id)
+                        .FirstOrDefault();
+                    staffTimesheetClockIn.ClockOut = DateTime.Now;
+                    _smoothContext.Entry(staffTimesheetClockIn).State = EntityState.Modified;
+                    _smoothContext.Entry(staff).State = EntityState.Modified;
+                    _smoothContext.SaveChanges();
+
+                }
+                else
+                {
+                    var staffTimesheet = new StaffTimesheet();
+                    staffTimesheet.Staff = staff;
+                    staffTimesheet.ClockIn = DateTime.Now;
+                    staff.ClockStatus = clockStatus.Where(a => a.Id == (int)ClockStatusEnum.In).SingleOrDefault();
+                    _smoothContext.StaffTimesheet.Add(staffTimesheet);
+                    _smoothContext.Entry(staff).State = EntityState.Modified;
+                    _smoothContext.SaveChanges();
+                }
+
+                return 1;
             }
-            else
+            catch (Exception)
             {
-                var staffTimesheet = new StaffTimesheet();
-                staffTimesheet.Staff = staff;
-                staffTimesheet.ClockIn = DateTime.Now;
-                staff.ClockStatus = clockStatus.Where(a => a.Id == (int)ClockStatusEnum.In).SingleOrDefault();
-                _smoothContext.StaffTimesheet.Add(staffTimesheet);
-                _smoothContext.Entry(staff).State = EntityState.Modified;
-                _smoothContext.SaveChanges();
+                return 0;
             }
 
-            return 1;
         }
 
     }
