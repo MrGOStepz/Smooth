@@ -3,7 +3,6 @@ C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\ko\Microsoft.CodeAnalys
 C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
 C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\appsettings.json
-C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\SmoothService.exe
 C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\SmoothService.deps.json
 C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\SmoothService.runtimeconfig.json
@@ -169,3 +168,4 @@ C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\runtimes\win-x64\native
 C:\GitRepos\Smooth\SmoothService\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 C:\GitRepos\Smooth\SmoothService\obj\Debug\netcoreapp3.1\SmoothService.csproj.CoreCompileInputs.cache
 C:\GitRepos\Smooth\SmoothService\obj\Debug\netcoreapp3.1\SmoothService.MvcApplicationPartsAssemblyInfo.cache
+C:\GitRepos\Smooth\SmoothService\obj\Debug\netcoreapp3.1\scopedcss\bundle\SmoothService.styles.css
