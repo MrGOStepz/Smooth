@@ -25,7 +25,7 @@ namespace SmoothService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PopupItem>>> GetPopupItem()
         {
-            return await _context.PopupItem.ToListAsync();
+            return await _context.PopupItem.Include(a => a.Popup).ToListAsync();
         }
 
         // GET: api/PopupItems/5
